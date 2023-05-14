@@ -1,0 +1,37 @@
+What happens when you type http://www.google/com and press enter
+When you type https://www.google.com in your browser and press Enter, a series of complex processes are initiated behind the scenes, which ultimately results in loading the Google homepage on your browser. In this blog post, we will explain these processes in detail and provide a comprehensive understanding of the various components involved in the process.
+
+1. DNS Request:
+
+The Domain Name System (DNS) converts the human-readable domain name (www.google.com) into an IP address that identifies the location of the webserver hosting the website. When you enter the URL in your browser, a DNS request is sent to your ISP's (Internet Service Provider) DNS servers to resolve the IP address of the Google webserver.
+
+2. TCP/IP:
+
+Once the DNS server has resolved the IP address of the webserver, a Transmission Control Protocol (TCP) connection is established between your computer and the webserver using the Internet Protocol (IP). The TCP protocol ensures reliable transmission of data between the two endpoints by breaking the data into smaller packets and reassembling them at the destination.
+
+3. Firewall:
+
+Before establishing the connection, the firewall on your computer and the webserver checks if the connection request is coming from an authorized IP address and if the request complies with the security policies configured on the firewall. If the request is authorized, the connection is established.
+
+4. HTTPS/SSL:
+
+HTTPS (HyperText Transfer Protocol Secure) is a secure version of HTTP that uses encryption to protect the data transmitted between the client and the webserver. When you connect to a website using HTTPS, the webserver sends its SSL (Secure Sockets Layer) certificate to your browser, which verifies the authenticity of the certificate and establishes an encrypted connection between your computer and the webserver.
+
+5. Load-balancer:
+
+To ensure high availability and scalability, websites are hosted on multiple web servers, and a load balancer is used to distribute the incoming traffic across these servers. When you connect to https://www.google.com, your connection request is directed to one of the web servers in the server pool based on the load balancing algorithm.
+
+6. Web server:
+
+The web server is responsible for serving the web page requested by your browser. When your connection request reaches the webserver, it reads the request, retrieves the requested web page from the file system or cache, and sends it back to your browser using the established TCP/IP connection.
+
+7. Application server:
+
+Some websites have dynamic content that requires processing on the server-side. An application server is used to execute the code that generates this dynamic content. When your browser requests a web page with dynamic content, the request is passed on to the application server, which generates the dynamic content and sends it back to the webserver.
+
+8. Database:
+
+Dynamic websites often store their content in a database. When your browser requests a web page with dynamic content, the application server retrieves the relevant data from the database, processes it, and generates the dynamic content.
+
+In conclusion, when you type https://www.google.com in your browser and press Enter, a series of processes involving DNS resolution, TCP/IP connection establishment, firewall security, HTTPS/SSL encryption, load balancing, web server, application server, and database. These processes work together to deliver the Google homepage to your browser.
+
