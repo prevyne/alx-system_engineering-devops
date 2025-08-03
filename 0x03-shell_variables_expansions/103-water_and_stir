@@ -1,2 +1,2 @@
 #!/bin/bash
-awk -v w="$WATER" -v s="$STIR" 'function d(s,b, r,l,i,c){r=0;l=length(b);for(i=1;i<=length(s);i++){c=substr(s,i,1);r=r*l+index(b,c)-1}return r}function t(n,b, r,l,m){if(n==0)return substr(b,1,1);r="";l=length(b);while(n>0){m=n%l;r=substr(b,m+1,1)r;n=int(n/l)}return r}BEGIN{print t(d(w,"water")+d(s,"stir."),"bestchol")}'
+awk -v w="$WATER" -v s="$STIR" 'function d(s,b){return length(s)?d(substr(s,2),b)+(index(b,substr(s,1,1))-1)*length(b)^(length(s)-1):0} function t(n,b){return n<length(b)?substr(b,n+1,1):t(int(n/length(b)),b) substr(b,n%length(b)+1,1)} BEGIN{print t(d(w,"water")+d(s,"stir."),"bestchol")}'
