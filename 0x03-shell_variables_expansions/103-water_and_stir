@@ -1,1 +1,83 @@
 #!/bin/bash
+
+# This script adds two numbers provided in environment variables,
+# each in a custom, non-standard base, and outputs the result
+# in a third custom base.
+
+# Function to convert a number from a custom base to decimal (base-10).
+# Arguments:
+#   $1: The number string in the custom base (e.g., "ewwatratewa").
+#   $2: The string of characters representing the digits of the custom base (e.g., "water").
+from_custom_base_to_decimal() {
+    local number_str="$1"
+    local base_chars="$2"
+    local base_len=${#base_chars}
+    local decimal_value=0
+    local i
+
+    # Iterate through each character of the number string.
+    for (( i=0; i<${#number_str}; i++ )); do
+        local char="${number_str:i:1}"
+        local digit_value=0
+        local j
+
+        # Find the decimal value of the current character by its position in the base character string.
+        for (( j=0; j<${#base_chars}; j++ )); do
+            if [[ "${base_chars:j:1}" == "$char" ]]; then
+                digit_value=$j
+                break
+            fi
+        done
+        
+        # Accumulate the decimal value.
+        decimal_value=$((decimal_value * base_len + digit_value))
+    done
+
+    echo "$decimal_value"
+}
+
+# Function to convert a decimal number to a custom base.
+# Arguments:
+#   $1: The decimal number to convert.
+#   $2: The string of characters representing the digits of the target custom base (e.g., "bestchol").
+from_decimal_to_custom_base() {
+    local decimal_value="$1"
+    local base_chars="$2"
+    local base_len=${#base_chars}
+    local result=""
+
+    # Handle the case where the input is 0.
+    if (( decimal_value == 0 )); then
+        echo "${base_chars:0:1}"
+        return
+    fi
+
+    # Convert the decimal number to the new base.
+    while (( decimal_value > 0 )); do
+        local remainder=$((decimal_value % base_len))
+        result="${base_chars:remainder:1}${result}"
+        decimal_value=$((decimal_value / base_len))
+    done
+
+    echo "$result"
+}
+
+# --- Main Script Execution ---
+
+# Define the character sets for each base.
+BASE_WATER_CHARS="water"
+BASE_STIR_CHARS="stir."
+BASE_BESTCHOL_CHARS="bestchol"
+
+# Convert the input numbers from their custom bases to decimal.
+decimal_water=$(from_custom_base_to_decimal "$WATER" "$BASE_WATER_CHARS")
+decimal_stir=$(from_custom_base_to_decimal "$STIR" "$BASE_STIR_CHARS")
+
+# Perform the addition in decimal.
+total_sum=$((decimal_water + decimal_stir))
+
+# Convert the decimal sum to the target custom base.
+final_result=$(from_decimal_to_custom_base "$total_sum" "$BASE_BESTCHOL_CHARS")
+
+# Print the final result.
+echo "$final_result"
